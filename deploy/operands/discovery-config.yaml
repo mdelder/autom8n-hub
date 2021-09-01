@@ -1,0 +1,9 @@
+apiVersion: discovery.open-cluster-management.io/v1alpha1
+kind: DiscoveryConfig
+metadata:
+  name: discovery
+  namespace: open-cluster-management-hub
+spec:
+  credential: cloud-redhat-com
+  filters:
+    lastActive: 7

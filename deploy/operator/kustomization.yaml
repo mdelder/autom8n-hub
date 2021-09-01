@@ -1,0 +1,35 @@
+# kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+# namespace to deploy all Resources to
+namespace: open-cluster-management
+
+patchesStrategicMerge:
+- default-sa-pull-secret-patch.yaml
+
+images:
+  - name: acm-custom-registry
+    # quay.io:443/acm-d/acm-custom-registry for downstream builds
+    # "quay.io/open-cluster-management/acm-custom-registry" for upstream builds
+    newName: quay.io:443/acm-d/acm-custom-registry
+    # update to specific tag
+    newTag: 2.4.0-DOWNSTREAM-2021-08-25-23-34-43
+
+# list of Resource Config to be Applied
+resources:
+  - namespace.yaml
+  # Either create a pull secret with the correct
+  # credentials and add it to kustomization.yaml
+  # or apply it out of band.
+  - pull-secret.yaml
+  - serviceaccount.yaml
+  - image-content-source-policy.yaml
+  - service.yaml
+  - deployment.yaml
+  - catalog-source.yaml
+  - operator-group.yaml
+  - subscription.yaml
