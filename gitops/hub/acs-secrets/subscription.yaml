@@ -1,0 +1,17 @@
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  name: acs-init-bundle
+  namespace: stackrox
+  labels:
+    app: acs-init-bundle
+spec:
+  channel: acs-init-bundle-ch/acs-init-bundle-ch
+  placement:
+    placementRef:
+      kind: PlacementRule
+      name: acs-init-bundle-placement
+
+
+
